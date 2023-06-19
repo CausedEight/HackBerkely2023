@@ -4,7 +4,7 @@ import openai
 
 load_dotenv()
 
-apiKey = os.environ.get('TOKEN')
+apiKey = os.environ.get('TOKEND')
 organization = os.environ.get('ORG')
 
 
@@ -14,18 +14,15 @@ openai.Model.list()
 
 load_dotenv()
 
-userInput = input("Enter a question: ")
-
-response = openai.Completion.create(
-  model="text-davinci-003",
-  prompt= userInput,
-  temperature=1,
-  max_tokens=100,
-  top_p=1,
-  frequency_penalty=0,
-  presence_penalty=0
-)
-
-generated_text = response.choices[0].text.strip()
-
-print(generated_text)
+async def returnResponse(message):
+    response = openai.Completion.create(
+      model="text-davinci-003",
+      prompt= message,
+      temperature=1,
+      max_tokens=100,
+      top_p=1,
+      frequency_penalty=0,
+      presence_penalty=0
+    )
+    generated_text = response.choices[0].text.strip()
+    return generated_text
